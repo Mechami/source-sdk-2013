@@ -1,0 +1,18 @@
+include_guard()
+
+macro(add_imported_libraries)
+	add_library(Lib::DMXLoader STATIC IMPORTED)
+	add_library(Lib::Particles STATIC IMPORTED)
+	add_library(Lib::Tier0 SHARED IMPORTED)
+	add_library(Lib::Tier2 STATIC IMPORTED)
+	add_library(Lib::Tier3 STATIC IMPORTED)
+	add_library(Lib::SteamAPI SHARED IMPORTED)
+	add_library(Lib::VStdLib SHARED IMPORTED)
+endmacro()
+
+macro(link_imported_libraries)
+	target_link_libraries(Lib::DMXLoader INTERFACE Lib::Tier1 Lib::Tier2 Lib::Mathlib)
+	target_link_libraries(Lib::Particles INTERFACE Lib::Tier1 Lib::Mathlib Lib::DMXLoader)
+	target_link_libraries(Lib::Tier2 INTERFACE Lib::Tier1 Lib::Mathlib)
+	target_link_libraries(Lib::Tier3 INTERFACE Lib::Tier1 Lib::Tier2 Lib::Choreoobjects)
+endmacro()
