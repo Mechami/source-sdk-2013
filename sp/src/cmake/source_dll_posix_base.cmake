@@ -10,12 +10,4 @@ endfunction()
 
 add_compile_options(
 	-fno-omit-frame-pointer -mno-omit-leaf-frame-pointer
-	-fno-plt
-
-##	-fabi-version=17
-#	-fcf-protection=none
-#	-fno-stack-protector
-#	-fno-stack-clash-protection
-	-fno-semantic-interposition
-##	-malign-data=cacheline
 )

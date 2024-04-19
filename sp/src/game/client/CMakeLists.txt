@@ -5,41 +5,11 @@ project("Client (${GAMENAME})" DESCRIPTION "Client binary" LANGUAGES CXX)
 # Add source_replay
 # Add protobuf_include
 
-add_compile_definitions(
-	GAME_DLL
-	VECTOR
-	VERSION_SAFE_STEAM_API_INTERFACES
-#	$<$<BOOL:${WIN32}>:PROTECTED_THINGS_ENABLE>
-#	sprintf=use_Q_snprintf_instead_of_sprintf
-#	strncpy=use_Q_strncpy_instead
-#	_snprintf=use_Q_snprintf_instead
-	$<$<BOOL:${UNIX}>:SWDS>
-#	$<$<BOOL:${WIN32}>:fopen=dont_use_fopen>
-
-	NO_STEAM
-	HL2_DLL
-	USES_SAVERESTORE
-	ASW_PROJECTED_TEXTURES
-	DYNAMIC_RTT_SHADOWS
-	GLOWS_ENABLE
-	$<$<BOOL:${EPISODIC}>:HL2_EPISODIC>
-	$<$<BOOL:${MAPBASE_VSCRIPT}>:MAPBASE_VSCRIPT>
-	$<$<BOOL:${NEW_RESPONSE_SYSTEM}>:NEW_RESPONSE_SYSTEM>
-)
-
-if (MAPBASE AND NOT LINUX)
-	add_compile_definitions(
-		MAPBASE_RPC
-		DISCORD_RPC
-		STEAM_RPC
-	)
-endif()
-
 include(source_base)
 include(source_dll_base)
 
 add_library(client SHARED $<TARGET_OBJECTS:base>)
-target_precompile_headers(client PRIVATE ${SP_SOURCE_DIR}/game/server/cbase.h)
+target_precompile_headers(client PRIVATE ${SP_SOURCE_DIR}/game/client/cbase.h)
 set_target_properties(client PROPERTIES PREFIX "")
 
 if (MAPBASE)

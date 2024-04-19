@@ -43,12 +43,21 @@ add_compile_options(-m32 $<IF:$<BOOL:${OPT_SAVE_TEMPORARIES}>,-save-temps,-pipe>
 	-Wno-invalid-offsetof -Wno-float-equal -Werror=return-type
 	-fdiagnostics-show-option -Wformat -Wformat-security
 
-	-march=nocona
-	-mtune=generic
+	-march=broadwell
+	-mtune=broadwell
 
 	# Valve flags + extra
 	-mfpmath=sse -msse -msse2 -mrecip=none $<$<BOOL:${OPT_DAZ_FTZ}>:-mdaz-ftz>
 	-frounding-math	-fsignaling-nans -mieee-fp
+
+	-fno-plt
+
+	-fabi-version=17
+#	-fcf-protection=none
+#	-fno-stack-protector
+#	-fno-stack-clash-protection
+	-fno-semantic-interposition
+	-malign-data=cacheline
 )
 
 if (CMAKE_INTERPROCEDURAL_OPTIMIZATION AND OPT_ENABLE_IPA_PTA)
